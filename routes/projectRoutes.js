@@ -55,6 +55,29 @@ routes.post('/projects/', (req, res) => {
   }
 })
 
+routes.put('/projects/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, description } = req.body;
+  if (!name || !description) {
+    res.status(400).json({ 
+      errorMessage: "Please provide a name and description for the project."
+    })
+  } else {
+    Projects.update(id, req.body)
+    .then(data => {
+      if (data) {
+        res.status(202).json(data);
+      } else {
+          res.status(404).json({ 
+            message: "The projec with the specified ID does not exist." 
+          })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "The project information could not be modified." })
+    })
+  }
+})
 
 
 

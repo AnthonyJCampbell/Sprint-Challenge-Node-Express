@@ -75,7 +75,6 @@ routes.put('/actions/:id', (req, res) => {
         res.status(500).json({ error: "The user information could not be modified." })
       })
   }
-
 })
 
 
