@@ -53,7 +53,30 @@ routes.post('/actions/', (req, res) => {
   }
 })
 
+routes.put('/actions/:id', (req, res) => {
+  const { id } = req.params;
+  const { project_id, description, notes } = req.body
+  if (!project_id || !description || !notes) {
+    res.status(400).json({ 
+      errorMessage: "Please provide a new description and notes and be sure to clarify to which project it should be added"
+    })
+  } else {
+    Actions.update(id, req.body)
+      .then(data => {
+        if (data) {
+          res.status(202).json(data);
+        } else {
+            res.status(404).json({ 
+              message: "The Action with the specified ID does not exist." 
+            })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ error: "The user information could not be modified." })
+      })
+  }
 
+})
 
 
 routes.delete('/actions/:id', (req,res) => {
