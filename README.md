@@ -24,9 +24,13 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [x] Mention two parts of Express that you learned about this week.
+Express is a framework that we use in conjunction with Node in order to manage routing and requests from the database. In essence, Node and express provide the layer between the front-end and the back-end. The fact that it's written in JS is a huge plus, since it allows us to easily adapt from our previous projects.
+Second, using middleware, we can 'intercept' our data after a request. So, we request some data and then hit our middleware. Then we can do whatever we want to; modify the incoming data, do some console logs, make new requests or do something different altogether. Then, once the middleware is finished executing, the normal flow of the document takes over and returns the (potentially modified) data. 
 
-- [ ] Describe Middleware?
+- [x] Describe Middleware?
+Middleware are functions that are similarly structured to a normal request. They take in a `req` and `res` parameter. However, they also take a `next` param. As mentioned above, a middleware executes whenever a request returns a response. Then, the middleware takes over. It can then modify the data, depending on how the function is structured and what it is designed to do. There's no limit to how many middlewares you can implement.
+Whenever the middleware is finished doing its thing, it's important to call `next()`, even when doing conditionals. This statement signifies that the middleware is done and that the normal document flow can resume.
 
 - [ ] Describe a Resource?
 
@@ -68,8 +72,8 @@ The `projectModel.js` helper includes an extra method called `getProjectActions(
 
 ## Minimum Viable Product
 
-- [ ] Configure an _npm script_ named _"server"_ that will execute your code using _nodemon_. Make _nodemon_ be a development time dependency only, it shouldn't be deployed to production.
-- [ ] Configure an _npm script_ named _"start"_ that will execute your code using _node_.
+- [x] Configure an _npm script_ named _"server"_ that will execute your code using _nodemon_. Make _nodemon_ be a development time dependency only, it shouldn't be deployed to production.
+- [x] Configure an _npm script_ named _"start"_ that will execute your code using _node_.
 
 Design and build the necessary endpoints to:
 
