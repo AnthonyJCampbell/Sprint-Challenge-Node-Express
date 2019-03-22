@@ -54,4 +54,28 @@ routes.post('/actions/', (req, res) => {
 })
 
 
+
+
+routes.delete('/actions/:id', (req,res) => {
+  const { id } = req.params;
+  Actions.get(id)
+    .then(data => {
+      if (!data) {
+        res.status({
+          message: "The action with the specified ID does not exist."
+        })
+      } else {
+        Actions.remove(id)
+          .then(() => {
+            res.status(200).json(data)
+          })
+          .catch(error => {
+            res.status(500).json({ 
+              error: "The action could not be removed" 
+            })
+          })
+      }
+    })
+})
+
 module.exports = routes;
