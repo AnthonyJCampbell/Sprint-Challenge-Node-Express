@@ -33,10 +33,14 @@ Middleware are functions that are similarly structured to a normal request. They
 Whenever the middleware is finished doing its thing, it's important to call `next()`, even when doing conditionals. This statement signifies that the middleware is done and that the normal document flow can resume.
 
 - [ ] Describe a Resource?
+When designing a REST API, a resource is a term used to denote the databases and objects we work with. Normally, they're accessed via unique URLs and can be changed using HTTP methods. From this follows that they all have a unique URL - just like any other website you're used to.
 
 - [ ] What can the API return to help clients know if a request was successful?
+A status code. Normally, when a request was successful, it'll return a 20X response. Status code 200 is the most common one, signifying that the request was successful. Others, like 201, signify that data was successfully added, deleted or changed.
+When returning the status code, one shouldn't forget to parse it to JSON by doing `res.status(200).json()`
 
 - [ ] How can we partition our application into sub-applications?
+We can break up our app by using routes. A router behaves like a mini express app, with its own middleware and routes. So, by splitting up our app into smaller routes, we can build smaller files each with the required endpoints for a specific dataset. For example, in this project, we'll use two routes. One for `actionModel` and one for `projectModel`.
 
 ## Project Setup
 
