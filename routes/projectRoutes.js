@@ -2,6 +2,8 @@ const express = require('express');
 const routes = express.Router();
 
 const Projects = require('../data/helpers/projectModel');
+const Actions = require('../data/helpers/actionModel');
+
 
 routes.use(express.json());
 
@@ -53,5 +55,27 @@ routes.post('/projects/', (req, res) => {
   }
 })
 
+
+
+
+
+routes.delete("/projects/:id", async (req, res) => {
+  // need to delete the posts
+  const actions = await Projects.getProjectActions(req.params.id)
+  await actions.forEach( async (action) => {
+    await Actions.remove(action.id)
+  });
+  Projects.remove(req.params.id)
+  .then( data => {
+    if(!data){
+      res.status(404).json({message: "That project does not exist"})
+    }else {
+      res.status(202).json({message: "Project was deleted", id: req.params.id})
+    }
+  })
+  .catch( err => {
+    res.status(500).json({message: "server error", error: err})
+  })
+})
 
 module.exports = routes;
