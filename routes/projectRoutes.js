@@ -34,6 +34,24 @@ routes.get('/projects/:id', (req, res) => {
     })
 })
 
+routes.post('/projects/', (req, res) => {
+  const { name, description } = req.body;
+  if (!name || !description) {
+    res.status(400).json({ 
+      errorMessage: "Please provide a name and description for the project."
+    })
+  } else {
+    Projects.insert(req.body)
+      .then(data => {
+        res.status(201).json({ ...data, name, description });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: "There was an error while saving the project to the database"
+        })
+      })
+  }
+})
 
 
 module.exports = routes;

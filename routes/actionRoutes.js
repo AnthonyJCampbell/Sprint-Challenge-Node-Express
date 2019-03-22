@@ -34,5 +34,24 @@ routes.get('/actions/:id', (req, res) => {
     })
 })
 
+routes.post('/actions/', (req, res) => {
+  const { project_id, description, notes } = req.body;
+  if (!project_id || !description || !notes) {
+    res.status(400).json({ 
+      errorMessage: "Please provide a description and notes and be sure to clarify to which project it should be added"
+    })
+  } else {
+    Actions.insert(req.body)
+      .then(data => {
+        res.status(201).json({ ...data, project_id, description, notes });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: "There was an error while saving the action to the project/database"
+        })
+      })
+  }
+})
+
 
 module.exports = routes;
